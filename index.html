@@ -3,8 +3,6 @@
 	<meta charset="utf-8">
 	<title>JSON parse and sort exercise</title>
 	<style>
-	    /* CSS embedded here instead of externally 
-	    so that you can run it locally without a web server */
 		table, th, td {
 	    	border: 1px solid black;
 		}
@@ -13,47 +11,43 @@
 
 <body>
 	<div id="container"></div>
+	<button id="carrier" type="button">Sort by Carrier</button> 
+	<button id="plan" type="button">Sort by Plan</button> 
+	<button id="copay" type="button">Sort by Copay</button> 
+	<button id="premium" type="button">Sort by Premium</button> 
+	<button id="annual" type="button">Sort by Annual Limit</button> 
+	
 	<script src="jquery-2.1.4.min.js"></script>
-	<script type="text/javascript">
-		 function getColumnNames(json){
-		 	var result;
-		 	if(json.length > 0){
-            	result = Object.keys(json[0]);
-            }
-		 	return result;
-		 }
-		 function generateTable(json){
-            var table = $("<table>");
-            var headerRow = $("<tr>");
-            var columnNames = getColumnNames(json);
-          
-            var headerColumns;
-            $.each(columnNames, function(i, entry){
-            	headerRow.append($("<th>").append(entry));
-            });
-            table.append($("<thead>").append(headerRow));
-            $("#container").append(table); 
+	<script src="sort-logic.js"></script>
 
-            var tbody = $("<tbody>");
-            $.each(json, function(i, entry){
-            	var newRow = $("<tr>");
-				tbody.append(newRow);
-            	$.each(columnNames, function(j, entryKey){
-            		newRow.append($("<td>").append(entry[entryKey]));
-            	});
-            });
-
-
-            table.append(tbody);
-		 }
-		 $(function(){
+	<script type="text/javascript">		
+		$(function(){
 			$.getJSON("input.json", function(data){ 
+				jsonData = data;
 		 		generateTable(data);
          	});
-		 });
-	
-	
-
+			
+            $("#carrier").click(function() {
+            	jsonData.sort(sortFactory.sortByCarrier);
+				generateTable(jsonData);
+			});
+			$("#plan").click(function() {
+				jsonData.sort(sortFactory.sortByPlanName);
+				generateTable(jsonData);
+			});
+			$("#copay").click(function() {
+				jsonData.sort(sortFactory.sortByCoPay);
+				generateTable(jsonData);
+			});
+			$("#premium").click(function() {
+				jsonData.sort(sortFactory.sortByPremium);
+				generateTable(jsonData);
+			});
+			$("#annual").click(function() {
+				jsonData.sort(sortFactory.sortByAnnualLimit);
+				generateTable(jsonData);
+			});
+		 });		
 	</script>
 </body>
 </html>

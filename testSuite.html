@@ -1,0 +1,66 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JSON parse and sort exercise tests</title>
+</head>
+
+<body>
+	<div id="container"></div>
+	
+	<script src="jquery-2.1.4.min.js"></script>
+	<script src="sort-logic.js"></script>
+
+	<script type="text/javascript">		
+		$(function(){
+			$.getJSON("input.json", function(data){ 
+				jsonData = data;
+				console.log(jsonData);
+				$("#container").append("<h3>JSON file string: </h3>");
+		 		$("#container").append(JSON.stringify(jsonData));
+
+				var actual = JSON.stringify(jsonData.sort(sortFactory.sortByPlanName));
+		 		var expected = '[{"carrierName":"Assured","planName":"Assurance One","copay":35,"premium":135,"annualLimit":120000},{"carrierName":"Assured","planName":"Assurance Two","copay":25,"premium":200,"annualLimit":250000},{"carrierName":"ProHealth","planName":"Be Well Basic","copay":40,"premium":100,"annualLimit":50000},{"carrierName":"ProHealth","planName":"Be Well Extra","copay":30,"premium":140,"annualLimit":100000},{"carrierName":"ProHealth","planName":"Be Well Max","copay":20,"premium":180,"annualLimit":200000}]';
+		 		$("#container").append("<h3>Sorting by carrierName: "+ (actual == expected ? "PASSED" : "FAIL") +" </h3>");
+		 		$("#container").append("Actual: </br>");
+		 		$("#container").append(actual);
+		 		$("#container").append("<br/><br/> Expected: </br>");
+		 		$("#container").append(expected);
+		 		
+		 		actual = JSON.stringify(jsonData.sort(sortFactory.sortByPlanName));
+		 		expected = '[{"carrierName":"Assured","planName":"Assurance One","copay":35,"premium":135,"annualLimit":120000},{"carrierName":"Assured","planName":"Assurance Two","copay":25,"premium":200,"annualLimit":250000},{"carrierName":"ProHealth","planName":"Be Well Basic","copay":40,"premium":100,"annualLimit":50000},{"carrierName":"ProHealth","planName":"Be Well Extra","copay":30,"premium":140,"annualLimit":100000},{"carrierName":"ProHealth","planName":"Be Well Max","copay":20,"premium":180,"annualLimit":200000}]';
+				$("#container").append("<h3>Sorting by planName: "+ (actual == expected ? "PASSED" : "FAIL") +" </h3>");
+		 		$("#container").append("Actual: </br>");
+		 		$("#container").append(actual);
+		 		$("#container").append("<br/><br/> Expected: </br>");
+		 		$("#container").append(expected);
+		 		
+		 		actual = JSON.stringify(jsonData.sort(sortFactory.sortByCoPay));
+		 		expected = '[{"carrierName":"ProHealth","planName":"Be Well Max","copay":20,"premium":180,"annualLimit":200000},{"carrierName":"Assured","planName":"Assurance Two","copay":25,"premium":200,"annualLimit":250000},{"carrierName":"ProHealth","planName":"Be Well Extra","copay":30,"premium":140,"annualLimit":100000},{"carrierName":"Assured","planName":"Assurance One","copay":35,"premium":135,"annualLimit":120000},{"carrierName":"ProHealth","planName":"Be Well Basic","copay":40,"premium":100,"annualLimit":50000}]';
+				$("#container").append("<h3>Sorting by copay: "+ (actual == expected ? "PASSED" : "FAIL") +" </h3>");
+		 		$("#container").append("Actual: </br>");
+		 		$("#container").append(actual);
+		 		$("#container").append("<br/><br/> Expected: </br>");
+		 		$("#container").append(expected);
+
+		 		actual = JSON.stringify(jsonData.sort(sortFactory.sortByPremium));
+		 		expected = '[{"carrierName":"ProHealth","planName":"Be Well Basic","copay":40,"premium":100,"annualLimit":50000},{"carrierName":"Assured","planName":"Assurance One","copay":35,"premium":135,"annualLimit":120000},{"carrierName":"ProHealth","planName":"Be Well Extra","copay":30,"premium":140,"annualLimit":100000},{"carrierName":"ProHealth","planName":"Be Well Max","copay":20,"premium":180,"annualLimit":200000},{"carrierName":"Assured","planName":"Assurance Two","copay":25,"premium":200,"annualLimit":250000}]';
+				$("#container").append("<h3>Sorting by premium: "+ (actual == expected ? "PASSED" : "FAIL") +" </h3>");
+		 		$("#container").append("Actual: </br>");
+		 		$("#container").append(actual);
+		 		$("#container").append("<br/><br/> Expected: </br>");
+		 		$("#container").append(expected);
+
+	 			actual = JSON.stringify(jsonData.sort(sortFactory.sortByAnnualLimit));
+		 		expected = '[{"carrierName":"Assured","planName":"Assurance Two","copay":25,"premium":200,"annualLimit":250000},{"carrierName":"ProHealth","planName":"Be Well Max","copay":20,"premium":180,"annualLimit":200000},{"carrierName":"Assured","planName":"Assurance One","copay":35,"premium":135,"annualLimit":120000},{"carrierName":"ProHealth","planName":"Be Well Extra","copay":30,"premium":140,"annualLimit":100000},{"carrierName":"ProHealth","planName":"Be Well Basic","copay":40,"premium":100,"annualLimit":50000}]';
+				$("#container").append("<h3>Sorting by annualLimit: "+ (actual == expected ? "PASSED" : "FAIL") +" </h3>");
+		 		$("#container").append("Actual: </br>");
+		 		$("#container").append(actual);
+		 		$("#container").append("<br/><br/> Expected: </br>");
+		 		$("#container").append(expected);
+		 	
+         	});
+			           	
+		 });		
+	</script>
+</body>
+</html>
