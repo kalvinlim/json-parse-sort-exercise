@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>JSON parse and sort exercise</title>
+	<style>
+	    /* CSS embedded here instead of externally 
+	    so that you can run it locally without a web server */
+		table, th, td {
+	    	border: 1px solid black;
+		}
+	</style>
+</head>
+
+<body>
+	<div id="container"></div>
+	<script src="jquery-2.1.4.min.js"></script>
+	<script type="text/javascript">
+		 function getColumnNames(json){
+		 	var result;
+		 	if(json.length > 0){
+            	result = Object.keys(json[0]);
+            }
+		 	return result;
+		 }
+		 function generateTable(json){
+            var table = $("<table>");
+            var headerRow = $("<tr>");
+            var columnNames = getColumnNames(json);
+          
+            var headerColumns;
+            $.each(columnNames, function(i, entry){
+            	headerRow.append($("<th>").append(entry));
+            });
+            table.append($("<thead>").append(headerRow));
+            $("#container").append(table); 
+
+            var tbody = $("<tbody>");
+            $.each(json, function(i, entry){
+            	var newRow = $("<tr>");
+				tbody.append(newRow);
+            	$.each(columnNames, function(j, entryKey){
+            		newRow.append($("<td>").append(entry[entryKey]));
+            	});
+            });
+
+
+            table.append(tbody);
+		 }
+		 $(function(){
+			$.getJSON("input.json", function(data){ 
+		 		generateTable(data);
+         	});
+		 });
+	
+	
+
+	</script>
+</body>
+</html>
